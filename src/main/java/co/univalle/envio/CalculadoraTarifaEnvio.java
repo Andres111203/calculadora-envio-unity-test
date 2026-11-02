@@ -8,10 +8,14 @@ public class CalculadoraTarifaEnvio
 {
 
     public float calcularTotal(float montoCompra, TipoCliente tipoCliente, boolean esCuponValido, int distanciaKm){
-        if(montoCompra < 0) {
-        }
+        validarParams(montoCompra, tipoCliente, distanciaKm);
 
-        return 0;
+        float montoConDescuento = aplicarDescuentoCliente(montoCompra, tipoCliente);
+        montoConDescuento = aplicarDescuentoCupon(montoConDescuento, esCuponValido);
+        float tarifaEnvio = calcularTarifaEnvio(montoConDescuento, tipoCliente, montoCompra, distanciaKm);
+
+        return montoConDescuento + tarifaEnvio;
+
     }
 
     private void validarParams(float montoCompra, TipoCliente tipoCliente, int distanciaKm){
